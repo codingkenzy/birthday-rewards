@@ -37,7 +37,7 @@
 }
 
 h1 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Great Vibes', cursive;
   font-size: 42px;
   color: var(--gold);
   margin-bottom: 10px;
@@ -104,4 +104,62 @@ h1 {
   50% {
     transform: translateY(-12px);
   }
+}
+
+.birthday-screen {
+  text-align: center;
+  animation: fadeIn 1s ease;
+}
+
+.birthday-screen h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 70px;
+  color: var(--gold);
+}
+
+.birthday-screen p {
+  margin-top: 20px;
+  color: var(--text-secondary);
+  font-size: 18px;
+}
+
+.birthday-screen button {
+  margin-top: 40px;
+  padding: 15px 35px;
+  border-radius: 30px;
+  border: none;
+  background: var(--gold);
+  color: black;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.letter-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn .8s ease;
+}
+
+.letter {
+  width: 100%;
+  max-width: 500px;
+  background: #fdfaf2;
+  color: #2c2c2c;
+  padding: 35px;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, .35);
+}
+
+.letter h2 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 42px;
+  color: #8a6b00;
+  margin-bottom: 20px;
+}
+
+.letter p {
+  line-height: 1.8;
+  font-size: 17px;
+  margin-bottom: 30px;
 }

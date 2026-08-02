@@ -13,7 +13,12 @@ export class Countdown implements OnInit {
   minutes = signal(0);
   seconds = signal(0);
 
-  birthdayDate = new Date('2026-08-11T00:00:00');
+  isBirthday = signal(false);
+
+  //birthdayDate = new Date('2026-08-11T00:00:00');
+  birthdayDate = new Date();
+
+  showLetter = signal(false);
 
   ngOnInit() {
     this.updateCountdown();
@@ -33,6 +38,7 @@ export class Countdown implements OnInit {
       this.hours.set(0);
       this.minutes.set(0);
       this.seconds.set(0);
+      this.isBirthday.set(true);
       return;
     }
 
@@ -50,5 +56,9 @@ export class Countdown implements OnInit {
 
   formatNumber(value: number): string {
     return value.toString().padStart(2, '0');
+  }
+
+  openLetter() {
+    this.showLetter.set(true);
   }
 }

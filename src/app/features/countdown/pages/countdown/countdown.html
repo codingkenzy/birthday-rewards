@@ -2,43 +2,69 @@
   <div class="background-glow"></div>
 
   <main class="content">
-    <div class="gift-icon">🎁</div>
+    @if (!isBirthday()) {
+      <div class="gift-icon">🎁</div>
 
-    <h1>Birthday Rewards</h1>
+      <h1>Birthday Rewards</h1>
 
-    <p class="subtitle">
-      A special gift awaits...
-    </p>
+      <p class="subtitle">
+        Hi, Kathleen! A special gift awaits...
+      </p>
 
-    <section class="timer-card">
-      <div class="time-box">
-        <span class="number">{{ formatNumber(days()) }}</span>
-        <span class="label">Days</span>
+      <section class="timer-card">
+        <div class="time-box">
+          <span class="number">{{ formatNumber(days()) }}</span>
+          <span class="label">Days</span>
+        </div>
+
+        <div class="time-box">
+          <span class="number">{{ formatNumber(hours()) }}</span>
+          <span class="label">Hours</span>
+        </div>
+
+        <div class="time-box">
+          <span class="number">{{ formatNumber(minutes()) }}</span>
+          <span class="label">Minutes</span>
+        </div>
+
+        <div class="time-box">
+          <span class="number">{{ formatNumber(seconds()) }}</span>
+          <span class="label">Seconds</span>
+        </div>
+      </section>
+
+      <section class="birthday-info">
+        <p class="small-title">Available on</p>
+        <p class="date">August 11, 2026</p>
+      </section>
+
+      <p class="message">
+        Every second brings you closer to something special.
+      </p>
+    }
+
+    @if (isBirthday() && !showLetter()) {
+      <div class="birthday-screen">
+        <h1>Happy Birthday!</h1>
+
+        <p>Someone sent you a letter.</p>
+
+        <button (click)="openLetter()">Open Letter</button>
       </div>
+    }
 
-      <div class="time-box">
-        <span class="number">{{ formatNumber(hours()) }}</span>
-        <span class="label">Hours</span>
+    @if (showLetter()) {
+      <div class="letter-container">
+        <div class="letter">
+          <h2>To My Favortite Person,</h2>
+
+          <p>
+            This is where we'll write the message.
+          </p>
+
+          <button>Claim Gift</button>
+        </div>
       </div>
-
-      <div class="time-box">
-        <span class="number">{{ formatNumber(minutes()) }}</span>
-        <span class="label">Minutes</span>
-      </div>
-
-      <div class="time-box">
-        <span class="number">{{ formatNumber(seconds()) }}</span>
-        <span class="label">Seconds</span>
-      </div>
-    </section>
-
-    <section class="birthday-info">
-      <p class="small-title">Available on</p>
-      <p class="date">August 11, 2026</p>
-    </section>
-
-    <p class="message">
-      Every second brings you closer to something special.
-    </p>
+    }
   </main>
 </div>
