@@ -1,1 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&family=Playfair+Display:wght@;600;700&display=swap');
+
+:root {
+  --bg: #0b0b0f;
+  --surface: #17171c;
+  --surface-light: #23232a;
+
+  --gold: #d4af37;
+  --gold-light: #f5d76e;
+
+  --text: #ffffff;
+  --text-secondary: #b7b7b7;
+
+  --success: #22c55e;
+  --danger: #ef4444;
+
+  --radius: 20px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+}
