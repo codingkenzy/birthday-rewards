@@ -10,24 +10,24 @@
       A special gift awaits...
     </p>
 
-    <section class="time-card">
+    <section class="timer-card">
       <div class="time-box">
-        <span class="number">365</span>
+        <span class="number">{{ formatNumber(days()) }}</span>
         <span class="label">Days</span>
       </div>
 
       <div class="time-box">
-        <span class="number">365</span>
+        <span class="number">{{ formatNumber(hours()) }}</span>
         <span class="label">Hours</span>
       </div>
 
       <div class="time-box">
-        <span class="number">365</span>
+        <span class="number">{{ formatNumber(minutes()) }}</span>
         <span class="label">Minutes</span>
       </div>
 
       <div class="time-box">
-        <span class="number">365</span>
+        <span class="number">{{ formatNumber(seconds()) }}</span>
         <span class="label">Seconds</span>
       </div>
     </section>
