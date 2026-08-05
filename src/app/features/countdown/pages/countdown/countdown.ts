@@ -1,4 +1,5 @@
 import { Component, OnInit, signal } from '@angular/core';
+import { Gift } from './models/gift';
 
 @Component({
   selector: 'app-countdown',
@@ -17,8 +18,80 @@ export class Countdown implements OnInit {
 
   //birthdayDate = new Date('2026-08-11T00:00:00');
   birthdayDate = new Date();
+  //birthdayDate = new Date('2026-08-03T15:37:00');
 
-  showLetter = signal(false);
+  experienceStage = signal<
+    'countdown'
+    | 'greeting'
+    | 'envelope'
+    | 'letter'
+    | 'gift-vault'
+    | 'gift-detail'
+    | 'redeem-confirmation'
+    | 'processing'
+    | 'redemption-code'
+  >('countdown');
+
+  gifts: Gift[] = [
+    {
+      id: 1,
+      icon: '🏨',
+      title: 'Luxury Staycation',
+      subtitle: 'One unforgettable night',
+      description:
+        'Enjoy a relaxing overnight stay at a beautiful hotel. Breakfast included.',
+      credits: 1,
+      claimed: false,
+      locked: false
+    },
+    {
+      id: 2,
+      icon: '💆',
+      title: 'Relaxing Massage',
+      subtitle: 'Time to unwind',
+      description:
+        'Take a well-deserved break with a full-body massage.',
+      credits: 1,
+      claimed: false,
+      locked: false
+    },
+    {
+      id: 3,
+      icon: '💇',
+      title: 'Salon Experience',
+      subtitle: 'A fresh new look',
+      description:
+        'Hair treatment, styling, or makeover at your favorite salon.',
+      credits: 1,
+      claimed: false,
+      locked: false
+    },
+    {
+      id: 4,
+      icon: '🎁',
+      title: 'Shopping Voucher',
+      subtitle: 'Buy something you love',
+      description:
+        'Use this voucher on anything you want.',
+      credits: 1,
+      claimed: false,
+      locked: false
+    },
+    {
+      id: 5,
+      icon: '📱',
+      title: 'Smartphone',
+      subtitle: 'Grand Prize',
+      description:
+        'This special reward has already been claimed.',
+      credits: 3,
+      claimed: true,
+      locked: true
+    }
+  ];
+
+  birthdayCredits = signal(3);
+  selectedGift = signal<Gift | null>(null);
 
   ngOnInit() {
     this.updateCountdown();
@@ -38,7 +111,11 @@ export class Countdown implements OnInit {
       this.hours.set(0);
       this.minutes.set(0);
       this.seconds.set(0);
-      this.isBirthday.set(true);
+
+      if (this.experienceStage() === 'countdown') {
+        this.experienceStage.set('greeting');
+      }
+
       return;
     }
 
@@ -58,7 +135,40 @@ export class Countdown implements OnInit {
     return value.toString().padStart(2, '0');
   }
 
-  openLetter() {
-    this.showLetter.set(true);
+  showEnvelope(): void {
+    this.experienceStage.set('envelope');
+  }
+
+  showLetter(): void {
+    this.experienceStage.set('letter');
+  }
+
+  showGiftVault(): void {
+    this.experienceStage.set('gift-vault');
+  }
+
+  viewGift(gift: Gift): void {
+    this.selectedGift.set(gift);
+    this.experienceStage.set('gift-detail');
+  }
+
+  goBackToGiftVault(): void {
+    this.experienceStage.set('gift-vault');
+  }
+
+  showRedeemConfirmation(): void {
+    this.experienceStage.set('redeem-confirmation');
+  }
+
+  processRedemption(): void {
+    this.experienceStage.set('processing');
+
+    setTimeout(() => {
+      this.completeRedemption();
+    }, 2500);
+  }
+
+  completeRedemption(): void {
+    this.experienceStage.set('redemption-code');
   }
 }

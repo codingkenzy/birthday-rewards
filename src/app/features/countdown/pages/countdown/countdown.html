@@ -2,7 +2,7 @@
   <div class="background-glow"></div>
 
   <main class="content">
-    @if (!isBirthday()) {
+    @if (experienceStage() === 'countdown') {
       <div class="gift-icon">🎁</div>
 
       <h1>Birthday Rewards</h1>
@@ -43,27 +43,158 @@
       </p>
     }
 
-    @if (isBirthday() && !showLetter()) {
-      <div class="birthday-screen">
+    @if (experienceStage() === 'greeting') {
+      <div class="greeting-screen">
         <h1>Happy Birthday!</h1>
 
         <p>Someone sent you a letter.</p>
 
-        <button (click)="openLetter()">Open Letter</button>
+        <button class="btn btn-primary" (click)="showEnvelope()">Open Letter</button>
       </div>
     }
 
-    @if (showLetter()) {
-      <div class="letter-container">
-        <div class="letter">
-          <h2>To My Favortite Person,</h2>
+    @if (experienceStage() === 'envelope') {
+      <div class="envelope-screen">
+        <p class="arrival-text">
+          A handwritten letter has arrived.
+        </p>
+
+        <div class="envelope">
+          <div class="envelope-back"></div>
+          <div class="envelope-flap"></div>
+
+          <div class="wax-seal" (click)="showLetter()">❤</div>
+        </div>
+
+        <p class="instruction">
+          Tap the wax seal to open.
+        </p>
+      </div>
+    }
+
+    @if (experienceStage() === 'letter') {
+      <div class="letter-screen">
+        <div class="letter-paper">
+          <h2>To My Favorite Person,</h2>
 
           <p>
-            This is where we'll write the message.
+            Happy Birthday!
+
+            This is where your heartfelt birthday
+            message will go.
+
+            I hope today reminds you how loved
+            and appreciated you are.
           </p>
 
-          <button>Claim Gift</button>
+          <button class="btn btn-primary" (click)="showGiftVault()">Unlock Birthday Rewards →</button>
         </div>
+      </div>
+    }
+
+    @if (experienceStage() === 'gift-vault') {
+      <div class="gift-vault">
+        <h1>Birthday Rewards</h1>
+
+        <p class="vault-subtitle">
+          Choose one special gift.
+        </p>
+
+        <div class="gift-grid">
+          @for (gift of gifts; track gift.id) {
+            <div class="gift-card">
+              <div class="gift-icon">
+                {{ gift.icon }}
+              </div>
+
+              <h2>
+                {{ gift.title }}
+              </h2>
+
+              <p>
+                {{ gift.subtitle }}
+              </p>
+
+              <button class="btn btn-primary btn-sm" [disabled]="gift.claimed" (click)="viewGift(gift)">
+                {{ gift.claimed ? 'Claimed' : 'View Details' }}
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    @if (experienceStage() === 'gift-detail' && selectedGift()) {
+      <div class="gift-detail">
+        <button class="btn btn-secondary btn-sm" (click)="goBackToGiftVault()">← Back</button>
+
+        <div class="gift-detail-card">
+          <div class="gift-detail-icon">
+            {{ selectedGift().icon }}
+          </div>
+
+          <h1>
+            {{ selectedGift().title }}
+          </h1>
+
+          <p class="gift-subtitle">
+            {{ selectedGift().subtitle }}
+          </p>
+
+          <div class="gift-description">
+            {{ selectedGift().description }}
+          </div>
+
+          <div class="gift-cost">
+            ⭐ {{ selectedGift().credits }}
+
+            Birthday Credit
+            {{ selectedGift().credits > 1 ? 's' : '' }}
+          </div>
+
+          <button class="btn btn-primary" (click)="showRedeemConfirmation()">Redeem Gift</button>
+        </div>
+      </div>
+    }
+
+    @if (experienceStage() === 'redeem-confirmation' && selectedGift()) {
+      <div class="confirmation-screen">
+        <div class="confirmation-card">
+          <h1>Confirm Redemption</h1>
+
+          <p>You are about to redeem</p>
+
+          <h2>{{ selectedGift().title }}</h2>
+
+          <p>
+            This will consume
+
+            ⭐ {{ selectedGift().credits }}
+
+            Birthday Credit
+            {{ selectedGift().credits > 1 ? 's' : '' }}
+          </p>
+
+          <div class="confirmation-buttons">
+            <button class="btn btn-secondary" (click)="experienceStage.set('gift-detail')">
+              Cancel
+            </button>
+
+            <button class="btn btn-primary" (click)="processRedemption()">
+              Confirm
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+
+    @if (experienceStage() === 'processing') {
+      <div class="processing-screen">
+        <div class="spinner"></div>
+
+        <h2>Preparing your reward...</h2>
+
+        <p>Please wait while we generate your redemption code.</p>
       </div>
     }
   </main>
