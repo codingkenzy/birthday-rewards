@@ -55,6 +55,11 @@
 
     @if (experienceStage() === 'envelope') {
       <div class="envelope-screen">
+
+        <p class="envelope-eyebrow">
+          A little something for you
+        </p>
+
         <p class="arrival-text">
           A handwritten letter has arrived.
         </p>
@@ -63,7 +68,14 @@
           <div class="envelope-back"></div>
           <div class="envelope-flap"></div>
 
-          <div class="wax-seal" (click)="showLetter()">❤</div>
+          <div
+            class="wax-seal"
+            (click)="showLetter()"
+            role="button"
+            tabindex="0"
+            aria-label="Open the birthday letter">
+            ❤
+          </div>
         </div>
 
         <p class="instruction">

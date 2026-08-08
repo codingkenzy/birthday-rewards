@@ -1,3 +1,19 @@
+:host {
+  --gold: #d4af37;
+  --gold-light: #f5d76e;
+  --gold-dark: #a8861d;
+
+  --background: #0d0d0f;
+  --surface: #18181b;
+  --surface-light: #242428;
+
+  --text-primary: #f5f5f5;
+  --text-secondary: #b5b5b8;
+  --text-muted: #77777d;
+
+  --success: #6fcf97;
+}
+
 /* ==========================================================
    BUTTON DESIGN SYSTEM
 ========================================================== */
@@ -220,8 +236,12 @@ h1 {
   font-size: 16px;
 }
 
+/* ==========================================================
+   ENVELOPE
+========================================================== */
 .envelope-screen {
   min-height: 100vh;
+  padding: 40px 24px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -230,72 +250,164 @@ h1 {
   animation: fadeIn .8s ease;
 }
 
-.arrival-text {
-  color: white;
-  margin-bottom: 30px;
-  font-size: 18px;
+.envelope-eyebrow {
+  margin: 0 0 10px;
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
 }
 
+.arrival-text {
+  margin: 0 0 35px;
+  color: var(--text-primary);
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+/* ----------------------------------------------------------
+   ENVELOPE
+---------------------------------------------------------- */
 .envelope {
   position: relative;
-  width: 320px;
-  height: 220px;
+  width: min(320px, 82vw);
+  height: min(220px, 56vw);
+  min-height: 190px;
+  perspective: 1000px;
 }
 
+
+/* ----------------------------------------------------------
+   ENVELOPE BACK
+---------------------------------------------------------- */
 .envelope-back {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
+
+  background:
+    linear-gradient(
       135deg,
       #fffaf2,
       #ece1cf
-  );
+    );
+
   border-radius: 10px;
-  box-shadow: 0 20px 40px rgba(0,0,0,.35);
+
+  box-shadow:
+    0 20px 40px rgba(0,0,0,.35);
 }
 
+
+/* ----------------------------------------------------------
+   ENVELOPE FLAP
+---------------------------------------------------------- */
 .envelope-flap {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 120px;
-  background: #ece3d3;
-  clip-path: polygon(0 0,100% 0,50% 100%);
+
+  background:
+    linear-gradient(
+      145deg,
+      #f5ecdc,
+      #ded1bb
+    );
+
+  clip-path:
+    polygon(
+      0 0,
+      100% 0,
+      50% 100%
+    );
+
   z-index: 2;
 }
 
+
+/* ----------------------------------------------------------
+   WAX SEAL
+---------------------------------------------------------- */
 .wax-seal {
   position: absolute;
   left: 50%;
   top: 60px;
-  transform: translateX(-50%);
+
+  transform:
+    translateX(-50%);
+
   width: 60px;
   height: 60px;
-  border-radius: 50%;
-  background: #6d1e2b;
-  color: white;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      #c95b5e,
+      #8e2730 65%,
+      #681d25
+    );
+
+  border: 3px solid #a83b40;
+  color: #f5d76e;
   font-size: 24px;
   z-index: 3;
   cursor: pointer;
-  transition: transform .25s ease,
-              box-shadow .25s ease;
-  box-shadow: 0 6px 20px rgba(0,0,0,.35);
+
+  box-shadow:
+    0 6px 20px rgba(0,0,0,.35),
+    inset 0 2px 3px rgba(255,255,255,.15);
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease;
 }
 
 .wax-seal:hover {
-  transform: translateX(-50%) scale(1.08);
-  box-shadow: 0 10px 28px rgba(0,0,0,.45);
+  transform:
+    translateX(-50%)
+    scale(1.08);
+
+  box-shadow:
+    0 10px 28px rgba(0,0,0,.45),
+    0 0 20px rgba(212,175,55,.15);
 }
 
 .wax-seal:active {
-  transform: translateX(-50%) scale(.95);
+  transform:
+    translateX(-50%)
+    scale(.95);
 }
 
+
+/* ----------------------------------------------------------
+   INSTRUCTION
+---------------------------------------------------------- */
+
 .instruction {
-  color: #c9c9c9;
   margin-top: 30px;
+  color: var(--text-muted);
+  font-size: 13px;
+
+  animation:
+    envelopeHintPulse 2.5s ease-in-out infinite;
+}
+
+
+@keyframes envelopeHintPulse {
+  0%,
+  100% {
+    opacity: .55;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
 
 .letter-screen {
