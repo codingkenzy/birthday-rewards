@@ -300,11 +300,6 @@ h1 {
   z-index: 1;
 }
 
-.envelope.is-opening .envelope-back {
-  z-index: 2;
-}
-
-
 /* ----------------------------------------------------------
    ENVELOPE FLAP
 ---------------------------------------------------------- */
@@ -329,7 +324,11 @@ h1 {
       50% 100%
     );
 
-  z-index: 2;
+  z-index: 4;
+  transform-origin: top center;
+
+  transition:
+    transform .65s cubic-bezier(.4, 0, .2, 1);
 }
 
 /* ----------------------------------------------------------
@@ -415,13 +414,6 @@ h1 {
 /* ==========================================================
    ENVELOPE OPENING ANIMATION
 ========================================================== */
-.envelope-flap {
-  transform-origin: top center;
-
-  transition:
-    transform .65s cubic-bezier(.4, 0, .2, 1);
-}
-
 .envelope .wax-seal {
   transition:
     transform .25s ease,
@@ -457,25 +449,44 @@ h1 {
   justify-content: center;
   background: #fffdf7;
   border-radius: 4px;
+
   box-shadow:
     0 8px 20px rgba(0,0,0,.15);
 
-  z-index: 0;
+  z-index: 1;
   transform: translateY(7%);
+
   transition:
-    transform .75s cubic-bezier(.4, 0, .2, 1);
+    transform .75s cubic-bezier(.4, 0, .2, 1),
+    opacity .2s ease;
 }
 
 .envelope-letter span {
   font-size: 40px;
 }
 
+.envelope-front {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 75%;
+
+  background:
+    linear-gradient(
+      145deg,
+      #f8f0df,
+      #e8dcc5
+    );
+
+  z-index: 3;
+}
+
 /* ==========================================================
    OPENING
 ========================================================== */
 .envelope.is-opening .envelope-letter {
-  transform: translateY(-110%);
-  z-index: 1;
+  transform: translateY(-55%);
 }
 
 .letter-screen {
