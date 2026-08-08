@@ -64,13 +64,16 @@
           A handwritten letter has arrived.
         </p>
 
-        <div class="envelope">
+        <div class="envelope" [class.is-opening]="envelopeOpening()">
           <div class="envelope-back"></div>
+          <div class="envelope-letter">
+            <span>💌</span>
+          </div>
           <div class="envelope-flap"></div>
 
           <div
             class="wax-seal"
-            (click)="showLetter()"
+            (click)="openEnvelope()"
             role="button"
             tabindex="0"
             aria-label="Open the birthday letter">

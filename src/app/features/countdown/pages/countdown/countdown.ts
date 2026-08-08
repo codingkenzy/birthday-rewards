@@ -112,8 +112,8 @@ export class Countdown implements OnInit {
 
   birthdayCredits = signal(3);
   selectedGift = signal<Gift | null>(null);
-
   redemptionCode = signal('');
+  envelopeOpening = signal(false);
 
   confettiPieces = Array.from(
     { length: 30 },
@@ -280,5 +280,17 @@ export class Countdown implements OnInit {
         error
       );
     }
+  }
+
+  openEnvelope(): void {
+    if (this.envelopeOpening()) {
+      return;
+    }
+
+    this.envelopeOpening.set(true);
+
+    setTimeout(() => {
+      this.showLetter();
+    }, 900);
   }
 }

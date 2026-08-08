@@ -296,6 +296,12 @@ h1 {
 
   box-shadow:
     0 20px 40px rgba(0,0,0,.35);
+
+  z-index: 1;
+}
+
+.envelope.is-opening .envelope-back {
+  z-index: 2;
 }
 
 
@@ -326,7 +332,6 @@ h1 {
   z-index: 2;
 }
 
-
 /* ----------------------------------------------------------
    WAX SEAL
 ---------------------------------------------------------- */
@@ -356,7 +361,7 @@ h1 {
   border: 3px solid #a83b40;
   color: #f5d76e;
   font-size: 24px;
-  z-index: 3;
+  z-index: 4;
   cursor: pointer;
 
   box-shadow:
@@ -384,11 +389,9 @@ h1 {
     scale(.95);
 }
 
-
 /* ----------------------------------------------------------
    INSTRUCTION
 ---------------------------------------------------------- */
-
 .instruction {
   margin-top: 30px;
   color: var(--text-muted);
@@ -397,7 +400,6 @@ h1 {
   animation:
     envelopeHintPulse 2.5s ease-in-out infinite;
 }
-
 
 @keyframes envelopeHintPulse {
   0%,
@@ -408,6 +410,72 @@ h1 {
   50% {
     opacity: 1;
   }
+}
+
+/* ==========================================================
+   ENVELOPE OPENING ANIMATION
+========================================================== */
+.envelope-flap {
+  transform-origin: top center;
+
+  transition:
+    transform .65s cubic-bezier(.4, 0, .2, 1);
+}
+
+.envelope .wax-seal {
+  transition:
+    transform .25s ease,
+    opacity .3s ease,
+    box-shadow .25s ease;
+}
+
+.envelope.is-opening .envelope-flap {
+  transform: rotateX(180deg);
+  z-index: 0;
+}
+
+.envelope.is-opening .wax-seal {
+  transform:
+    translateX(-50%)
+    scale(.85);
+
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ==========================================================
+   LETTER INSIDE ENVELOPE
+========================================================== */
+.envelope-letter {
+  position: absolute;
+  left: 8%;
+  bottom: 5%;
+  width: 84%;
+  height: 75%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fffdf7;
+  border-radius: 4px;
+  box-shadow:
+    0 8px 20px rgba(0,0,0,.15);
+
+  z-index: 0;
+  transform: translateY(7%);
+  transition:
+    transform .75s cubic-bezier(.4, 0, .2, 1);
+}
+
+.envelope-letter span {
+  font-size: 40px;
+}
+
+/* ==========================================================
+   OPENING
+========================================================== */
+.envelope.is-opening .envelope-letter {
+  transform: translateY(-110%);
+  z-index: 1;
 }
 
 .letter-screen {
