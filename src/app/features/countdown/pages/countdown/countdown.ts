@@ -18,7 +18,6 @@ export class Countdown implements OnInit {
 
   //birthdayDate = new Date('2026-08-11T00:00:00');
   birthdayDate = new Date();
-  //birthdayDate = new Date('2026-08-03T15:37:00');
 
   experienceStage = signal<
     'countdown'
@@ -38,8 +37,13 @@ export class Countdown implements OnInit {
       icon: '🏨',
       title: 'Luxury Staycation',
       subtitle: 'One unforgettable night',
-      description:
-        'Enjoy a relaxing overnight stay at a beautiful hotel. Breakfast included.',
+      description: 'Enjoy a relaxing overnight stay at a beautiful hotel. Breakfast included.',
+      included: [
+        'Overnight stay',
+        'Breakfast for two',
+        'Late checkout',
+        'Free parking'
+      ],
       credits: 1,
       claimed: false,
       locked: false
@@ -49,8 +53,12 @@ export class Countdown implements OnInit {
       icon: '💆',
       title: 'Relaxing Massage',
       subtitle: 'Time to unwind',
-      description:
-        'Take a well-deserved break with a full-body massage.',
+      description: 'Take a well-deserved break with a full-body massage.',
+      included: [
+        '90-minute massage',
+        'Aromatherapy oil',
+        'Complimentary tea'
+      ],
       credits: 1,
       claimed: false,
       locked: false
@@ -60,8 +68,12 @@ export class Countdown implements OnInit {
       icon: '💇',
       title: 'Salon Experience',
       subtitle: 'A fresh new look',
-      description:
-        'Hair treatment, styling, or makeover at your favorite salon.',
+      description: 'Hair treatment, styling, or makeover at your favorite salon.',
+      included: [
+        'Haircut',
+        'Hair treatment',
+        'Professional styling'
+      ],
       credits: 1,
       claimed: false,
       locked: false
@@ -71,8 +83,12 @@ export class Countdown implements OnInit {
       icon: '🎁',
       title: 'Shopping Voucher',
       subtitle: 'Buy something you love',
-      description:
-        'Use this voucher on anything you want.',
+      description: 'Use this voucher on anything you want.',
+      included: [
+        'Use at participating stores',
+        'No expiry date',
+        'Transferable'
+      ],
       credits: 1,
       claimed: false,
       locked: false
@@ -82,8 +98,11 @@ export class Countdown implements OnInit {
       icon: '📱',
       title: 'Smartphone',
       subtitle: 'Grand Prize',
-      description:
-        'This special reward has already been claimed.',
+      description: 'This special reward has already been claimed.',
+      included: [
+        'Already received',
+        'Birthday surprise'
+      ],
       credits: 3,
       claimed: true,
       locked: true
@@ -92,6 +111,8 @@ export class Countdown implements OnInit {
 
   birthdayCredits = signal(3);
   selectedGift = signal<Gift | null>(null);
+
+  redemptionCode = signal('');
 
   ngOnInit() {
     this.updateCountdown();
@@ -219,6 +240,22 @@ export class Countdown implements OnInit {
       );
     }
 
+    this.redemptionCode.set(
+      this.generateRedemptionCode()
+    );
+
     this.experienceStage.set('redemption-code');
+  }
+
+  generateRedemptionCode(): string {
+    const characters = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+
+    let random = '';
+
+    for (let i = 0; i < 6; i++) {
+      random += characters[Math.floor(Math.random() * characters.length)];
+    }
+
+    return `BR-2026-${random}`;
   }
 }

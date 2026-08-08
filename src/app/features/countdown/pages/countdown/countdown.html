@@ -146,6 +146,13 @@
               {{ gift.description }}
             </div>
 
+            <h3>Included</h3>
+            <ul class="included-list">
+              @for (item of gift.included; track item) {
+                <li>✓ {{ item }}</li>
+              }
+            </ul>
+
             <div class="gift-cost">
               ⭐ {{ gift.credits }}
 
