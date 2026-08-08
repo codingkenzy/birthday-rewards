@@ -32,7 +32,7 @@ export class Countdown implements OnInit {
     | 'redemption-code'
   >('countdown');
 
-  gifts: Gift[] = [
+  gifts = signal<Gift[]>([
     {
       id: 1,
       icon: '🏨',
@@ -88,7 +88,7 @@ export class Countdown implements OnInit {
       claimed: true,
       locked: true
     }
-  ];
+  ]);
 
   birthdayCredits = signal(3);
   selectedGift = signal<Gift | null>(null);
@@ -156,6 +156,24 @@ export class Countdown implements OnInit {
     this.experienceStage.set('gift-vault');
   }
 
+  redeemSelectedGift():void {
+    const gift = this.selectedGift();
+
+    if (!gift) {
+      return;
+    }
+
+    if (gift.claimed || gift.locked) {
+      return;
+    }
+
+    if (this.birthdayCredits() < gift.credits) {
+      return;
+    }
+
+    this.processRedemption();
+  }
+
   showRedeemConfirmation(): void {
     this.experienceStage.set('redeem-confirmation');
   }
@@ -169,6 +187,38 @@ export class Countdown implements OnInit {
   }
 
   completeRedemption(): void {
+    const gift = this.selectedGift();
+
+    if (!gift) {
+      return;
+    }
+
+    this.birthdayCredits.update(c => c - gift.credits);
+
+    this.gifts.update(
+      gifts => gifts.map(
+        g => g.id === gift.id
+        ? {
+          ...g,
+          claimed: true
+        }
+        : g
+      )
+    );
+
+    if (this.birthdayCredits() === 0) {
+      this.gifts.update(
+        gifts => gifts.map(
+          g => g.claimed
+          ? g
+          : {
+            ...g,
+            locked: true
+          }
+        )
+      );
+    }
+
     this.experienceStage.set('redemption-code');
   }
 }

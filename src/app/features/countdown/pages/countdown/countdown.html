@@ -101,7 +101,7 @@
         </p>
 
         <div class="gift-grid">
-          @for (gift of gifts; track gift.id) {
+          @for (gift of gifts(); track gift.id) {
             <div class="gift-card">
               <div class="gift-icon">
                 {{ gift.icon }}
@@ -124,68 +124,72 @@
       </div>
     }
 
-    @if (experienceStage() === 'gift-detail' && selectedGift()) {
-      <div class="gift-detail">
-        <button class="btn btn-secondary btn-sm" (click)="goBackToGiftVault()">← Back</button>
+    @if (selectedGift(); as gift) {
+      @if (experienceStage() === 'gift-detail') {
+        <div class="gift-detail">
+          <button class="btn btn-secondary btn-sm" (click)="goBackToGiftVault()">← Back</button>
 
-        <div class="gift-detail-card">
-          <div class="gift-detail-icon">
-            {{ selectedGift().icon }}
+          <div class="gift-detail-card">
+            <div class="gift-detail-icon">
+              {{ gift.icon }}
+            </div>
+
+            <h1>
+              {{ gift.title }}
+            </h1>
+
+            <p class="gift-subtitle">
+              {{ gift.subtitle }}
+            </p>
+
+            <div class="gift-description">
+              {{ gift.description }}
+            </div>
+
+            <div class="gift-cost">
+              ⭐ {{ gift.credits }}
+
+              Birthday Credit
+              {{ gift.credits > 1 ? 's' : '' }}
+            </div>
+
+            <button class="btn btn-primary" (click)="showRedeemConfirmation()">Redeem Gift</button>
           </div>
-
-          <h1>
-            {{ selectedGift().title }}
-          </h1>
-
-          <p class="gift-subtitle">
-            {{ selectedGift().subtitle }}
-          </p>
-
-          <div class="gift-description">
-            {{ selectedGift().description }}
-          </div>
-
-          <div class="gift-cost">
-            ⭐ {{ selectedGift().credits }}
-
-            Birthday Credit
-            {{ selectedGift().credits > 1 ? 's' : '' }}
-          </div>
-
-          <button class="btn btn-primary" (click)="showRedeemConfirmation()">Redeem Gift</button>
         </div>
-      </div>
+      }
     }
 
-    @if (experienceStage() === 'redeem-confirmation' && selectedGift()) {
-      <div class="confirmation-screen">
-        <div class="confirmation-card">
-          <h1>Confirm Redemption</h1>
+    @if (selectedGift(); as gift) {
+      @if (experienceStage() === 'redeem-confirmation') {
+        <div class="confirmation-screen">
+          <div class="confirmation-card">
+            <h1>Confirm Redemption</h1>
 
-          <p>You are about to redeem</p>
+            <p>You are about to redeem</p>
 
-          <h2>{{ selectedGift().title }}</h2>
+            <h2>{{ gift.title }}</h2>
 
-          <p>
-            This will consume
+            <p>
+              This will consume
 
-            ⭐ {{ selectedGift().credits }}
+              ⭐ {{ gift.credits }}
 
-            Birthday Credit
-            {{ selectedGift().credits > 1 ? 's' : '' }}
-          </p>
+              Birthday Credit
+              {{ gift.credits > 1 ? 's' : '' }}
+            </p>
 
-          <div class="confirmation-buttons">
-            <button class="btn btn-secondary" (click)="experienceStage.set('gift-detail')">
-              Cancel
-            </button>
+            <div class="confirmation-buttons">
+              <button class="btn btn-secondary" (click)="experienceStage.set('gift-detail')">
+                Cancel
+              </button>
 
-            <button class="btn btn-primary" (click)="processRedemption()">
-              Confirm
-            </button>
+              <button class="btn btn-primary" (click)="redeemSelectedGift()">
+                Confirm
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      }
     }
 
     @if (experienceStage() === 'processing') {
