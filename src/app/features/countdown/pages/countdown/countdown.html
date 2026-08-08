@@ -127,7 +127,7 @@
     @if (selectedGift(); as gift) {
       @if (experienceStage() === 'gift-detail') {
         <div class="gift-detail">
-          <button class="btn btn-secondary btn-sm" (click)="goBackToGiftVault()">← Back</button>
+          <button class="btn btn-secondary btn-sm" (click)="returnToGiftVault()">← Back</button>
 
           <div class="gift-detail-card">
             <div class="gift-detail-icon">
@@ -206,6 +206,52 @@
         <h2>Preparing your reward...</h2>
 
         <p>Please wait while we generate your redemption code.</p>
+      </div>
+    }
+
+    @if (experienceStage() === 'redemption-code' && selectedGift(); as gift) {
+      <div class="redemption-screen">
+        <div class="confetti-container">
+          @for (piece of confettiPieces; track piece) {
+            <span
+              class="confetti-piece"
+              [style.--left]="piece * 3.3 + '%'"
+              [style.--delay]="piece * 100 + 'ms'">
+            </span>
+          }
+        </div>
+
+        <div class="success-icon">✓</div>
+
+        <p class="success-label">REWARD CLAIMED</p>
+
+        <h1>It's Yours!</h1>
+
+        <p class="success-message">Your birthday reward has been successfully redeemed.</p>
+
+        <div class="redemption-card">
+          <div class="redemption-gift-icon">{{ gift.icon }}</div>
+
+          <h2>{{ gift.title }}</h2>
+
+          <p>{{ gift.subtitle }}</p>
+
+          <div class="redemption-divider"></div>
+
+          <span class="code-label">YOUR REDEMPTION CODE</span>
+
+          <div class="redemption-code">{{ redemptionCode() }}</div>
+
+          <button class="btn btn-primary" (click)="copyRedemptionCode()">📋 Copy Code</button>
+        </div>
+
+        <div class="remaining-credits">
+          <span>Remaining Birthday Credits</span>
+
+          <strong>⭐ {{ birthdayCredits() }}</strong>
+        </div>
+
+        <button class="btn btn-secondary" (click)="returnToGiftVault()">← Back to Rewards</button>
       </div>
     }
   </main>

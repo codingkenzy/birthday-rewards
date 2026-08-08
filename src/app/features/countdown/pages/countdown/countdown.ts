@@ -114,6 +114,11 @@ export class Countdown implements OnInit {
 
   redemptionCode = signal('');
 
+  confettiPieces = Array.from(
+    { length: 30 },
+    (_, index) => index
+  );
+
   ngOnInit() {
     this.updateCountdown();
 
@@ -173,7 +178,7 @@ export class Countdown implements OnInit {
     this.experienceStage.set('gift-detail');
   }
 
-  goBackToGiftVault(): void {
+  returnToGiftVault(): void {
     this.experienceStage.set('gift-vault');
   }
 
@@ -257,5 +262,22 @@ export class Countdown implements OnInit {
     }
 
     return `BR-2026-${random}`;
+  }
+
+  async copyRedemptionCode(): Promise<void> {
+    const code = this.redemptionCode();
+
+    if (!code) {
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(code);
+    } catch (error) {
+      console.error(
+        'Failed to copy redemption code:',
+        error
+      );
+    }
   }
 }
