@@ -489,36 +489,167 @@ h1 {
   transform: translateY(-55%);
 }
 
+/* ==========================================================
+   LETTER SCREEN
+========================================================== */
 .letter-screen {
   min-height: 100vh;
+  padding: 50px 4px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px;
-  animation: fadeIn .8s ease;
+  text-align: center;
+
+  animation:
+    letterReveal .9s ease forwards;
+
 }
 
-.letter-paper {
-  width: 100%;
-  max-width: 650px;
-  background: #fffaf2;
-  color: #2b2b2b;
+.letter-card {
+  width: min(520px, 100%);
+  padding: 38px 28px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #fffdf8,
+      #f5eee2
+    );
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, .35);
+
+  color: #2a2521;
+}
+
+/* ----------------------------------------------------------
+   LETTER LABEL
+---------------------------------------------------------- */
+.letter-label {
+  margin: 0 0 28px;
+  color: #a8861d;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+/* ----------------------------------------------------------
+   LETTER CONTENT
+---------------------------------------------------------- */
+.letter-content {
+  text-align: left;
+  font-family:
+    Georgia,
+    'Times New Roman',
+    serif;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #39332d;
+}
+
+/* ----------------------------------------------------------
+   LETTER REVEAL
+---------------------------------------------------------- */
+@keyframes letterReveal {
+  from {
+    opacity: 0;
+    transform:
+      translateY(18px)
+      scale(.98);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+/* ==========================================================
+   REWARDS HEADER
+========================================================== */
+.rewards-header {
+  width: min(600px, 100%);
+  margin: 0 auto 35px;
+  text-align: center;
+}
+
+.rewards-eyebrow {
+  margin: 0 0 8px;
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.rewards-header h1 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: clamp(28px, 7vw, 40px);
+  font-weight: 600;
+}
+
+.rewards-description {
+  max-width: 430px;
+  margin: 12px auto 22px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ----------------------------------------------------------
+   CREDIT DISPLAY
+---------------------------------------------------------- */
+.credit-display {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 22px;
+  border: 1px solid rgba(212, 175, 55, .35);
   border-radius: 16px;
-  padding: 40px;
-  box-shadow: 0 25px 50px rgba(0,0,0,.35);
+  background:
+    rgba(212, 175, 55, .08);
 }
 
-.letter-paper h2 {
-  font-family: 'Great Vibes', cursive;
-  font-size: 48px;
-  color: #8a6b00;
-  margin-bottom: 24px;
+.credit-label {
+  color: var(--text-secondary);
+  font-size: 12px;
+  letter-spacing: .5px;
 }
 
-.letter-paper p {
-  font-size: 18px;
-  line-height: 1.9;
-  margin-bottom: 32px;
+/* ----------------------------------------------------------
+   REWARD STARS
+---------------------------------------------------------- */
+.stars {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.star {
+  font-size: 24px;
+  line-height: 1;
+  color: var(--gold);
+
+  text-shadow:
+    0 0 10px rgba(212, 175, 55, .35);
+
+  transition:
+    opacity .3s ease,
+    transform .3s ease;
+}
+
+.star.used {
+  color: var(--text-muted);
+  opacity: .3;
+  text-shadow: none;
 }
 
 .gift-vault {

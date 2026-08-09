@@ -2,6 +2,7 @@
   <div class="background-glow"></div>
 
   <main class="content">
+    <!-- 1st Stage : Countdown -->
     @if (experienceStage() === 'countdown') {
       <div class="gift-icon">🎁</div>
 
@@ -43,6 +44,7 @@
       </p>
     }
 
+    <!-- 2nd Stage : Greeting -->
     @if (experienceStage() === 'greeting') {
       <div class="greeting-screen">
         <h1>Happy Birthday!</h1>
@@ -53,6 +55,7 @@
       </div>
     }
 
+    <!-- 3rd Stage : Envelope -->
     @if (experienceStage() === 'envelope') {
       <div class="envelope-screen">
 
@@ -88,33 +91,46 @@
       </div>
     }
 
+    <!-- 4th Stage : Letter -->
     @if (experienceStage() === 'letter') {
       <div class="letter-screen">
-        <div class="letter-paper">
-          <h2>To My Favorite Person,</h2>
+        <div class="letter-card">
+          <p class="letter-label">A LETTER FOR YOU</p>
 
-          <p>
-            Happy Birthday!
-
-            This is where your heartfelt birthday
-            message will go.
-
-            I hope today reminds you how loved
-            and appreciated you are.
-          </p>
+          <div class="letter-content">
+            <!-- Letter goes here -->
+          </div>
 
           <button class="btn btn-primary" (click)="showGiftVault()">Unlock Birthday Rewards →</button>
         </div>
       </div>
     }
 
+    <!-- 5th Stage : Gift Vault -->
     @if (experienceStage() === 'gift-vault') {
       <div class="gift-vault">
-        <h1>Birthday Rewards</h1>
+        <div class="rewards-header">
+          <p class="rewards-eyebrow">Birthday Rewards</p>
 
-        <p class="vault-subtitle">
-          Choose one special gift.
-        </p>
+          <h1>Choose Your Gifts</h1>
+
+          <p class="rewards-description">
+            You have limited credits to spend.
+            Choose the gifts you'd like to redeem.
+          </p>
+
+          <div class="credit-display">
+            <div class="stars" aria-label="Reward Stars">
+              @for (star of [1, 2, 3]; track star) {
+                <span class="star" [class.used]="star > birthdayCredits()">★</span>
+              }
+            </div>
+
+            <span class="credit-label">
+              {{ birthdayCredits() }} {{ birthdayCredits() === 1 ? 'STAR' : 'STARS' }} REMAINING
+            </span>
+          </div>
+        </div>
 
         <div class="gift-grid">
           @for (gift of gifts(); track gift.id) {
@@ -140,6 +156,7 @@
       </div>
     }
 
+    <!-- 6th Stage : Gift Detail -->
     @if (selectedGift(); as gift) {
       @if (experienceStage() === 'gift-detail') {
         <div class="gift-detail">
@@ -182,6 +199,7 @@
       }
     }
 
+    <!-- 7th Stage : Redeem Confirmation -->
     @if (selectedGift(); as gift) {
       @if (experienceStage() === 'redeem-confirmation') {
         <div class="confirmation-screen">
@@ -215,6 +233,7 @@
       }
     }
 
+    <!-- 8th Stage : Processing -->
     @if (experienceStage() === 'processing') {
       <div class="processing-screen">
         <div class="spinner"></div>
@@ -225,6 +244,7 @@
       </div>
     }
 
+    <!-- 9th Stage : Redemption Code -->
     @if (experienceStage() === 'redemption-code' && selectedGift(); as gift) {
       <div class="redemption-screen">
         <div class="confetti-container">
