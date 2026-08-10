@@ -210,14 +210,17 @@
 
             <h2>{{ gift.title }}</h2>
 
-            <p>
-              This will consume
+            <div class="confirmation-cost">
+              <span class="cost-label">YOU WILL SPEND</span>
 
-              ⭐ {{ gift.credits }}
+              <strong class="cost-stars">
+                ⭐ {{ gift.credits }}
+              </strong>
 
-              Birthday Credit
-              {{ gift.credits > 1 ? 's' : '' }}
-            </p>
+              <span class="cost-description">
+                Birthday Credit{{ gift.credits > 1 ? 's' : '' }}
+              </span>
+            </div>
 
             <div class="confirmation-buttons">
               <button class="btn btn-secondary" (click)="experienceStage.set('gift-detail')">
