@@ -250,16 +250,6 @@
     <!-- 9th Stage : Redemption Code -->
     @if (experienceStage() === 'redemption-code' && selectedGift(); as gift) {
       <div class="redemption-screen">
-        <div class="confetti-container">
-          @for (piece of confettiPieces; track piece) {
-            <span
-              class="confetti-piece"
-              [style.--left]="piece * 3.3 + '%'"
-              [style.--delay]="piece * 100 + 'ms'">
-            </span>
-          }
-        </div>
-
         <div class="success-icon">✓</div>
 
         <p class="success-label">REWARD CLAIMED</p>

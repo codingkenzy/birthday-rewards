@@ -1,5 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { Gift } from './models/gift';
+import confetti from 'canvas-confetti';
 
 @Component({
   selector: 'app-countdown',
@@ -114,11 +115,6 @@ export class Countdown implements OnInit {
   selectedGift = signal<Gift | null>(null);
   redemptionCode = signal('');
   envelopeOpening = signal(false);
-
-  confettiPieces = Array.from(
-    { length: 30 },
-    (_, index) => index
-  );
 
   ngOnInit() {
     this.updateCountdown();
@@ -251,6 +247,10 @@ export class Countdown implements OnInit {
     );
 
     this.experienceStage.set('redemption-code');
+
+    setTimeout(() => {
+      this.launchConfetti();
+    }, 900);
   }
 
   generateRedemptionCode(): string {
@@ -293,4 +293,40 @@ export class Countdown implements OnInit {
       this.showLetter();
     }, 900);
   }
+
+  private launchConfetti(): void {
+    // Left burst
+    confetti({
+      particleCount: 80,
+      angle: 65,
+      spread: 55,
+      startVelocity: 55,
+      gravity: 1.1,
+      decay: 0.92,
+      scalar: 1,
+      ticks: 220,
+      origin: {
+        x: 0.15,
+        y: 0.72
+      }
+    });
+
+    // Right burst
+    confetti({
+      particleCount: 80,
+      angle: 115,
+      spread: 55,
+      startVelocity: 55,
+      gravity: 1.1,
+      decay: 0.92,
+      scalar: 1,
+      ticks: 220,
+      origin: {
+        x: 0.85,
+        y: 0.72
+      }
+    });
+  }
+
+
 }
