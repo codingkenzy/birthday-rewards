@@ -17,9 +17,7 @@ export class Countdown implements OnInit {
 
   isBirthday = signal(false);
 
-  //birthdayDate = new Date('2026-08-11T00:00:00');
-  //birthdayDate = new Date();
-  birthdayDate = new Date('2026-08-08T19:22:00');
+  birthdayDate = new Date('2026-08-11T00:00:00');
 
   experienceStage = signal<
     'countdown'
