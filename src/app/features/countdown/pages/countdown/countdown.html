@@ -47,9 +47,9 @@
     <!-- 2nd Stage : Greeting -->
     @if (experienceStage() === 'greeting') {
       <div class="greeting-screen">
-        <h1>Happy Birthday!</h1>
+        <h1>Happy Birthday Kath!</h1>
 
-        <p>Someone sent you a letter.</p>
+        <p>Ken sent you a letter.</p>
 
         <button class="btn btn-primary" (click)="showEnvelope()">Open Letter</button>
       </div>
@@ -98,10 +98,19 @@
           <p class="letter-label">A LETTER FOR YOU</p>
 
           <div class="letter-content">
-            <!-- Letter goes here -->
+            Hi, Baba! Happiest Birthday to you! 🥳🎉
+            I am wishing you all the best in life because I know you deserve it.
+            You are the most selfless person I know and you never fail to amaze me, always.
+            Salamat kay Mommy at Daddy for making you.
+            Hindi mo na kailangan malungkot tuwing birthday mo, palagi ka na may kasama mag celebrate!
+            I will be forever grateful na binigay ka sa'kin ni Lord.
+            I hope this little something will make you happy and make you feel special.
+            Please use this gift well, treat yourself Baba. You deserve it!
+            Smile and enjoy your day! ☺️
+            I will love you so much. I love you always! 💕
           </div>
 
-          <button class="btn btn-primary" (click)="showGiftVault()">Unlock Birthday Rewards →</button>
+          <button class="btn btn-primary" (click)="showGiftVault()">Claim Gifts →</button>
         </div>
       </div>
     }
@@ -147,8 +156,12 @@
                 {{ gift.subtitle }}
               </p>
 
-              <button class="btn btn-primary btn-sm" [disabled]="gift.claimed" (click)="viewGift(gift)">
-                {{ gift.claimed ? 'Claimed' : 'View Details' }}
+              <button 
+                class="btn btn-primary btn-sm" 
+                [class.btn-secondary]="gift.claimed === true" 
+                [disabled]="gift.claimed" 
+                (click)="viewGift(gift)">
+                  {{ gift.claimed ? 'Claimed' : 'View Details' }}
               </button>
             </div>
           }
@@ -280,6 +293,23 @@
           <strong>⭐ {{ birthdayCredits() }}</strong>
         </div>
 
+        @if (gift.id === 2) {
+          <p class="code-label">Click <a href="https://gft.ph/KpWXCQVlT2">here</a> to claim the voucher.</p>
+        }
+
+        @if (gift.id === 3) {
+          <p class="code-label">Click <a href="https://gft.ph/LUmF2WpUkK">here</a> to claim the voucher.</p>
+        }
+
+        @if (gift.id === 5) {
+          <p class="code-label">Click <a href="https://gft.ph/KpWXCQVlT2">here</a> to claim the voucher.</p>
+        }
+
+        @if (gift.id === 1) {
+          <p class="code-label">
+            Our team will reach out to you for further details. For the meantime, please save the code.
+          </p>
+        }
         <button class="btn btn-secondary" (click)="returnToGiftVault()">← Back to Rewards</button>
       </div>
     }

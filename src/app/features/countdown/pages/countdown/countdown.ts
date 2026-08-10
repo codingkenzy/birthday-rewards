@@ -18,7 +18,7 @@ export class Countdown implements OnInit {
   isBirthday = signal(false);
 
   birthdayDate = new Date('2026-08-11T00:00:00');
-
+  
   experienceStage = signal<
     'countdown'
     | 'greeting'
@@ -35,27 +35,26 @@ export class Countdown implements OnInit {
     {
       id: 1,
       icon: '🏨',
-      title: 'Luxury Staycation',
-      subtitle: 'One unforgettable night',
-      description: 'Enjoy a relaxing overnight stay at a beautiful hotel. Breakfast included.',
+      title: 'G1 Lodge Design Hotel',
+      subtitle: '3 Days & 2 Nights at Baguio City',
+      description: 'Enjoy a relaxing stay at G1 Lodge Design Hotel located at Baguio City from September 30 to October 1, 2026.',
       included: [
-        'Overnight stay',
         'Breakfast for two',
-        'Late checkout',
+        'Balcony',
         'Free parking'
       ],
-      credits: 1,
+      credits: 2,
       claimed: false,
       locked: false
     },
     {
       id: 2,
       icon: '💆',
-      title: 'Relaxing Massage',
-      subtitle: 'Time to unwind',
+      title: 'Massage Voucher',
+      subtitle: 'Time to relax and unwind',
       description: 'Take a well-deserved break with a full-body massage.',
       included: [
-        '90-minute massage',
+        'Massage voucher',
         'Aromatherapy oil',
         'Complimentary tea'
       ],
@@ -65,28 +64,13 @@ export class Countdown implements OnInit {
     },
     {
       id: 3,
-      icon: '💇',
-      title: 'Salon Experience',
-      subtitle: 'A fresh new look',
-      description: 'Hair treatment, styling, or makeover at your favorite salon.',
-      included: [
-        'Haircut',
-        'Hair treatment',
-        'Professional styling'
-      ],
-      credits: 1,
-      claimed: false,
-      locked: false
-    },
-    {
-      id: 4,
       icon: '🎁',
       title: 'Shopping Voucher',
       subtitle: 'Buy something you love',
       description: 'Use this voucher on anything you want.',
       included: [
-        'Use at participating stores',
-        'No expiry date',
+        'Use to redeem GCash voucher',
+        'Use in any participating stores',
         'Transferable'
       ],
       credits: 1,
@@ -94,10 +78,10 @@ export class Countdown implements OnInit {
       locked: false
     },
     {
-      id: 5,
+      id: 4,
       icon: '📱',
       title: 'Smartphone',
-      subtitle: 'Grand Prize',
+      subtitle: 'iPhone 16',
       description: 'This special reward has already been claimed.',
       included: [
         'Already received',
@@ -106,6 +90,20 @@ export class Countdown implements OnInit {
       credits: 3,
       claimed: true,
       locked: true
+    },
+    {
+      id: 5,
+      icon: '🍽️',
+      title: 'Food Voucher',
+      subtitle: 'A Delicious Treat',
+      description: 'Enjoy a special meal or your favorite food with this birthday voucher.',
+      included: [
+        'Food of your choice',
+        'Food voucher'
+      ],
+      credits: 1,
+      claimed: false,
+      locked: false
     }
   ]);
 
@@ -248,7 +246,7 @@ export class Countdown implements OnInit {
 
     setTimeout(() => {
       this.launchConfetti();
-    }, 900);
+    }, 300);
   }
 
   generateRedemptionCode(): string {
@@ -260,7 +258,25 @@ export class Countdown implements OnInit {
       random += characters[Math.floor(Math.random() * characters.length)];
     }
 
-    return `BR-2026-${random}`;
+    const gift = this.selectedGift();
+
+    if (!gift) {
+      return `BR-2026-${random}`;
+    }
+
+    let code = '';
+
+    if (gift.id === 1) {
+      code = `BR-2026-${random}`;
+    } else if (gift.id === 2) {
+      code = 'G6NA-CA7N';
+    } else if (gift.id === 3) {
+      code = 'QCE8-DYD4';
+    } else if (gift.id === 5) {
+      code = 'G6NA-CA7N';
+    }
+
+    return code;
   }
 
   async copyRedemptionCode(): Promise<void> {
