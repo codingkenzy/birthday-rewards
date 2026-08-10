@@ -44,8 +44,8 @@ export class Countdown implements OnInit {
         'Free parking'
       ],
       credits: 2,
-      claimed: false,
-      locked: false
+      claimed: true,
+      locked: true
     },
     {
       id: 2,
@@ -74,8 +74,8 @@ export class Countdown implements OnInit {
         'Transferable'
       ],
       credits: 1,
-      claimed: false,
-      locked: false
+      claimed: true,
+      locked: true
     },
     {
       id: 4,
@@ -102,12 +102,12 @@ export class Countdown implements OnInit {
         'Food voucher'
       ],
       credits: 1,
-      claimed: false,
-      locked: false
+      claimed: true,
+      locked: true
     }
   ]);
 
-  birthdayCredits = signal(3);
+  birthdayCredits = signal(0);
   selectedGift = signal<Gift | null>(null);
   redemptionCode = signal('');
   envelopeOpening = signal(false);
