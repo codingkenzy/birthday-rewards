@@ -133,6 +133,7 @@ export class Countdown implements OnInit {
 
       if (this.experienceStage() === 'countdown') {
         this.experienceStage.set('greeting');
+        this.launchConfetti();
       }
 
       return;
