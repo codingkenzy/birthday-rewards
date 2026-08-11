@@ -17,7 +17,7 @@ export class Countdown implements OnInit {
 
   isBirthday = signal(false);
 
-  birthdayDate = new Date('2026-08-11T00:00:00');
+  birthdayDate = new Date('2026-08-11T12:40:00');
   
   experienceStage = signal<
     'countdown'
@@ -39,13 +39,14 @@ export class Countdown implements OnInit {
       subtitle: '3 Days & 2 Nights at Baguio City',
       description: 'Enjoy a relaxing stay at G1 Lodge Design Hotel located at Baguio City from September 30 to October 1, 2026.',
       included: [
+        'Deluxe Suite',
         'Breakfast for two',
         'Balcony',
         'Free parking'
       ],
       credits: 2,
-      claimed: true,
-      locked: true
+      claimed: false,
+      locked: false
     },
     {
       id: 2,
@@ -74,8 +75,8 @@ export class Countdown implements OnInit {
         'Transferable'
       ],
       credits: 1,
-      claimed: true,
-      locked: true
+      claimed: false,
+      locked: false
     },
     {
       id: 4,
@@ -102,8 +103,8 @@ export class Countdown implements OnInit {
         'Food voucher'
       ],
       credits: 1,
-      claimed: true,
-      locked: true
+      claimed: false,
+      locked: false
     }
   ]);
 
